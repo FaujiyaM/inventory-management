@@ -25,7 +25,7 @@
           {{ t('nav.demandForecast') }}
         </router-link>
         <router-link to="/reports" class="nav-item" :class="{ active: $route.path === '/reports' }">
-          Reports
+          {{ t('reports.title') }}
         </router-link>
         <router-link to="/restocking" class="nav-item" :class="{ active: $route.path === '/restocking' }">
           {{ t('nav.restocking') }}
@@ -186,13 +186,13 @@ body {
   --topbar-height: 52px;
 
   /* Sidebar – dark */
-  --sb-bg:          #0f172a;
-  --sb-border:      #1e293b;
-  --sb-text:        #94a3b8;
-  --sb-text-active: #f1f5f9;
-  --sb-hover-bg:    #1e293b;
-  --sb-active-bg:   #1e293b;
-  --sb-accent:      #3b82f6;
+  --sb-bg:          #1e1030;
+  --sb-border:      #2d1d4a;
+  --sb-text:        #a78bc4;
+  --sb-text-active: #f3e8ff;
+  --sb-hover-bg:    #2d1d4a;
+  --sb-active-bg:   #2d1d4a;
+  --sb-accent:      #a855f7;
 
   /* Content */
   --content-bg:      #f1f5f9;
@@ -231,7 +231,7 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 100;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .sidebar-brand {
@@ -391,7 +391,7 @@ body {
 .stat-card.warning .stat-value { color: #ea580c; }
 .stat-card.success .stat-value { color: #059669; }
 .stat-card.danger  .stat-value { color: #dc2626; }
-.stat-card.info    .stat-value { color: #2563eb; }
+.stat-card.info    .stat-value { color: #7c3aed; }
 
 /* ─── Cards ──────────────────────────────────────────── */
 .card {
@@ -480,13 +480,13 @@ tbody tr:hover {
 .badge.success    { background: #dcfce7; color: #166534; }
 .badge.warning    { background: #fef9c3; color: #854d0e; }
 .badge.danger     { background: #fee2e2; color: #991b1b; }
-.badge.info       { background: #dbeafe; color: #1e40af; }
+.badge.info       { background: #ede9fe; color: #5b21b6; }
 .badge.increasing { background: #dcfce7; color: #166534; }
 .badge.decreasing { background: #fee2e2; color: #991b1b; }
-.badge.stable     { background: #e0e7ff; color: #3730a3; }
+.badge.stable     { background: #ede9fe; color: #5b21b6; }
 .badge.high       { background: #fee2e2; color: #991b1b; }
 .badge.medium     { background: #fef9c3; color: #854d0e; }
-.badge.low        { background: #dbeafe; color: #1e40af; }
+.badge.low        { background: #ede9fe; color: #5b21b6; }
 .badge.restocking { background: #f3e8ff; color: #6b21a8; }
 
 /* ─── Loading / error ────────────────────────────────── */
