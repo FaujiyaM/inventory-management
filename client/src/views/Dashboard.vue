@@ -337,8 +337,22 @@ export default {
       getCurrentFilters
     } = useFilters()
 
-    const ordersData = ref({ fulfilled: 187, goal: 200 })
-    const fillRate = ref(96.8)
+    // Computed from allOrders so they update when filters change
+    const ordersData = computed(() => {
+      const fulfilled = allOrders.value.filter(o =>
+        ['delivered', 'shipped'].includes(o.status.toLowerCase())
+      ).length
+      return { fulfilled, goal: 200 }
+    })
+
+    const fillRate = computed(() => {
+      const total = allOrders.value.length
+      if (total === 0) return 0
+      const fulfilled = allOrders.value.filter(o =>
+        ['delivered', 'shipped'].includes(o.status.toLowerCase())
+      ).length
+      return parseFloat(((fulfilled / total) * 100).toFixed(1))
+    })
 
     const revenueGoal = computed(() => {
       // $800K per month, so if looking at all months (12 months), goal is 12 * 800K = 9.6M
@@ -561,9 +575,10 @@ export default {
     const loadData = async () => {
       try {
         loading.value = true
+        error.value = null
         const filters = getCurrentFilters()
 
-        const [summaryData, ordersData, inventoryData, backlogData] = await Promise.all([
+        const [summaryData, fetchedOrders, inventoryData, backlogData] = await Promise.all([
           api.getDashboardSummary(filters),
           api.getOrders(filters),
           api.getInventory(filters),
@@ -571,7 +586,7 @@ export default {
         ])
 
         summary.value = summaryData
-        allOrders.value = ordersData
+        allOrders.value = fetchedOrders
         inventoryItems.value = inventoryData
         allBacklogItems.value = backlogData
       } catch (err) {
